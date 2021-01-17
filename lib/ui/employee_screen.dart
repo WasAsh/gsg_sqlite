@@ -15,13 +15,11 @@ class EmployeeScreen extends StatefulWidget{
 
 class _EmployeeScreenState extends State<EmployeeScreen>{
 
-
   TextEditingController _firstNameController = TextEditingController() ;
   TextEditingController _lastNameController = TextEditingController();
   TextEditingController _ageController = TextEditingController();
   TextEditingController _cityController = TextEditingController();
   TextEditingController _departmentController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +59,6 @@ class _EmployeeScreenState extends State<EmployeeScreen>{
               decoration: InputDecoration(labelText: 'Department'),
             ),
             Padding(padding: EdgeInsets.all(5.0),),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Description'),
-            ),
-            Padding(padding: EdgeInsets.all(5.0),),
             RaisedButton(
               child: Text('Save' , style: TextStyle(color: Colors.white),),
               color: Colors.deepPurple,
@@ -76,7 +69,6 @@ class _EmployeeScreenState extends State<EmployeeScreen>{
                   age: _ageController.text,
                   city: _cityController.text,
                   department: _departmentController.text,
-                  description: _descriptionController.text,
                 );
                 context.read<DataBaseProvider>().insertToDb(emp);
                 Navigator.pop(context);

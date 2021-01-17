@@ -11,66 +11,74 @@ import 'package:provider/provider.dart';
 class EmployeeWidget extends StatelessWidget {
 
   final Employee emp ;
-  EmployeeWidget(this.emp);
+  String employeeName;
+  String employeeId ;
+  EmployeeWidget(this.emp , this.employeeName , this.employeeId);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Divider(
-          height: 5.0,
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: ListTile(
-                title: Text(
-                  '${emp.firstName} ${emp.lastName}',
-                  style: TextStyle(
-                      fontSize: 22.0, color: Colors.redAccent
-                  ),
-                ),
-                subtitle: Text(
-                  'click here to show all employee information !',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-                leading: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(5.0),
-                    ),
-                    CircleAvatar(
-                      radius: 15.0,
-                      backgroundColor: Colors.amber,
-                      child: Text(
-                        '${emp.id}',
-                        style: TextStyle(
-                            fontSize: 20.0, color: Colors.white),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10 , vertical: 10),
+      child: Column(
+        children: <Widget>[
+          Divider(
+            height: 5.0,
+          ),
+          Card(
+            color: Colors.deepPurple[200],
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ListTile(
+                    title: Text(
+                      employeeName,
+                      style: TextStyle(
+                          fontSize: 18, color: Colors.deepPurple
                       ),
                     ),
-                  ],
+                    subtitle: Text(
+                      'click here to show all employee information !',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                    leading: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(5.0),
+                        ),
+                        CircleAvatar(
+                          radius: 15.0,
+                          backgroundColor: Colors.deepPurple,
+                          child: Text(
+                            employeeId,
+                            style: TextStyle(
+                                fontSize: 18, color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () => _navigateToEmployeeInfo(context, emp),
+                  ),
                 ),
-                onTap: () => _navigateToEmployeeInfo(context, emp),
-              ),
+                IconButton(
+                  icon: Icon(Icons.edit , color: Colors.blueAccent,),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEmployeeScreen(emp)));
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete , color: Colors.red,),
+                  onPressed: () {
+                    context.read<DataBaseProvider>().deleteEmployee(emp);
+                  }
+                ),
+              ],
             ),
-            new IconButton(
-              icon: Icon(Icons.edit , color: Colors.blueAccent,),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditEmployeeScreen(emp)));
-              },
-            ),
-            new IconButton(
-              icon: Icon(Icons.delete , color: Colors.red,),
-              onPressed: () {
-                context.read<DataBaseProvider>().deleteEmployee(emp);
-              }
-            ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 

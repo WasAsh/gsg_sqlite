@@ -21,7 +21,6 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
   TextEditingController _ageController = TextEditingController();
   TextEditingController _cityController = TextEditingController();
   TextEditingController _departmentController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
 
 
   @override
@@ -32,7 +31,6 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
     _ageController.text = widget.emp.age ;
     _cityController.text = widget.emp.city ;
     _departmentController.text = widget.emp.department ;
-    _descriptionController.text = widget.emp.description ;
   }
 
   @override
@@ -73,11 +71,6 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
               decoration: InputDecoration(labelText: 'Department'),
             ),
             Padding(padding: EdgeInsets.all(5.0),),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Description'),
-            ),
-            Padding(padding: EdgeInsets.all(5.0),),
             RaisedButton(
               child: Text('Edit' , style: TextStyle(color: Colors.white),),
               color: Colors.deepPurple,
@@ -89,7 +82,6 @@ class _EditEmployeeScreenState extends State<EditEmployeeScreen> {
                   'age' : _ageController.text ,
                   'city' : _cityController.text ,
                   'department' : _departmentController.text ,
-                  'description' : _descriptionController.text ,
                 });
                 context.read<DataBaseProvider>().updateEmployee(emp);
                 Navigator.pop(context);
